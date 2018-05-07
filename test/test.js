@@ -1,6 +1,6 @@
 
 var assert = require('assert');
-var eutils = require('../../ncbi-eutils');
+var eutils = require('../src/index');
 
 describe('ncbi-eutils API object', function() {
   describe('version', function() {
@@ -53,25 +53,49 @@ describe('ncbi-eutils API object', function() {
 
 });
 
-describe('ncbi core e-utils', function () {
-  describe('#einfo()', function() {
-    it('should list all the databases with no parameters', function(done) {
-      eutils.einfo().then(function(d) {
-        assert(d.einforesult.dblist.length >= 47);
-        assert(d.einforesult.dblist.indexOf('gene') > -1);
-        assert(d.einforesult.dblist.indexOf('protein') > -1);
-        assert(d.einforesult.dblist.indexOf('pubmed') > -1);
-        done();
-      });
-    });
 
-    it('should return info for a single db', function(done){
-      eutils.einfo('gene').then(function(d) {
-        assert.equal(d.einforesult.dbinfo.dbname, 'gene');
-        assert.ok(d.einforesult.dbinfo.fieldlist[0].istruncatable);
-        done();
-      });
+describe('ncbi core e-utils', function () {
+    describe('#esearch()', function() {
+        it('should list all the databases with no parameters', function(done) {
+
+            eutils.esearch({db:'pubmed', retmax:10, term: 'psoriasis'})
+                .then(d => {
+                    console.log(d);
+                    done();
+                });
+        });
+
+        // it('should return info for a single db', function(done){
+        //     eutils.einfo('gene').then(function(d) {
+        //         assert.equal(d.einforesult.dbinfo.dbname, 'gene');
+        //         assert.ok(d.einforesult.dbinfo.fieldlist[0].istruncatable);
+        //         done();
+        //     });
+        // });
     });
-  });
 });
 
+
+
+// describe('ncbi core e-utils', function () {
+//   describe('#einfo()', function() {
+//     it('should list all the databases with no parameters', function(done) {
+//       eutils.einfo().then(function(d) {
+//         assert(d.einforesult.dblist.length >= 47);
+//         assert(d.einforesult.dblist.indexOf('gene') > -1);
+//         assert(d.einforesult.dblist.indexOf('protein') > -1);
+//         assert(d.einforesult.dblist.indexOf('pubmed') > -1);
+//         done();
+//       });
+//     });
+//
+//     it('should return info for a single db', function(done){
+//       eutils.einfo('gene').then(function(d) {
+//         assert.equal(d.einforesult.dbinfo.dbname, 'gene');
+//         assert.ok(d.einforesult.dbinfo.fieldlist[0].istruncatable);
+//         done();
+//       });
+//     });
+//   });
+// });
+//
