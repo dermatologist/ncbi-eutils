@@ -35,7 +35,7 @@ exports.einfo = function einfo(db) {
   }
   return request(requestURL).then(function(res) {
     // return JSON.parse(res);
-      return res; // res is already an object when using axios
+      return res.data; // res is already an object when using axios
   });
 };
 
@@ -52,7 +52,7 @@ exports.esearch = function esearch(userOptions) {
 
   return request(requestURL).then(function(res) {
     //var jsonRes = JSON.parse(res);
-    var jsonRes = res; // res is already an object when using axios
+      var jsonRes = res.data; // res is already an object when using axios
     jsonRes.db = options.db;
 
     if (jsonRes.esearchresult.count <= options.retmax) {
@@ -130,7 +130,7 @@ exports.elink = function(userOptions) {
 
     return request(requestURL).then(function(res) {
       // var jsonRes = JSON.parse(res);
-        var jsonRes = res; // res is already an object when using axios
+        var jsonRes = res.data; // res is already an object when using axios
       jsonRes.db = options.db;
       jsonRes.id = jsonRes.linksets[0].linksetdbs[0].links;
       return jsonRes;
