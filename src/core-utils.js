@@ -66,7 +66,7 @@ exports.esearch = function esearch(userOptions) {
 function makeRequest(requestURL) {
   return request(requestURL).then(function(res) {
     return new Promise(function(resolve, reject) {
-      xml2js(res, {explicitArray:false}, function(err, result) {
+      xml2js(res.data, {explicitArray:false}, function(err, result) {
         if (!err) {
           resolve(result);
         } else {
